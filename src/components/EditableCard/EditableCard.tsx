@@ -10,7 +10,7 @@ import {
 
 type Props = {
   toggleStatusAdding?: () => void;
-  cardEditing?: (id: number) => void;
+  cardEditing?: (id: string) => void;
   cardData?: ICard;
 };
 

@@ -12,18 +12,22 @@ type Props = {
 
 export const Column: React.FC<Props> = ({ status, data }) => {
   const [isCardAdding, setIsCardAdding] = useState<boolean>(false);
-  const [cardInEditing, setCardInEditing] = useState<number | null>(null);
+  const [cardInEditing, setCardInEditing] = useState<string | null>(null);
 
   const toggleStatusAdding = () => setIsCardAdding(!isCardAdding);
 
-  const cardEditing = (id: number) => {
-    setCardInEditing((prev) => {
-      if (prev === null) return id;
+  const cardEditing = (id: string) => {
+    setCardInEditing(id);
+    console.log(id);
+    return id;
 
-      if (prev && id === prev) return null;
+    // setCardInEditing((prev) => {
+    //   if (prev === null) return id;
 
-      if (prev && id !== prev) return id;
-    });
+    //   if (prev && id === prev) return null;
+
+    //   if (prev && id !== prev) return id;
+    // });
   };
   return (
     <ColumnStyled>

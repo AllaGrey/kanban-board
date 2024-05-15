@@ -11,7 +11,7 @@ import { Icon } from "../../shared/Icon/Icon";
 
 type Props = {
   cardData: ICard;
-  cardEditing: (id: number) => void;
+  cardEditing: (id: string) => void;
 };
 
 export const Card: React.FC<Props> = ({ cardData, cardEditing }) => {
