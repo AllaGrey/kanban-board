@@ -2,7 +2,7 @@ import React from "react";
 import { MainContentContainer, MainStyled } from "./Main.styled";
 import { ControlPanel } from "../ControlPanel/ControlPanel";
 import { Board } from "../Board/Board";
-import { LastBoardsList } from "../LastBoardsList/LastBoardsList";
+// import { LastBoardsList } from "../LastBoardsList/LastBoardsList";
 
 export const Main: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ export const Main: React.FC = () => {
       <ControlPanel />
       <MainContentContainer>
         <Board />
-        <LastBoardsList />
+        {/* <LastBoardsList /> */}
       </MainContentContainer>
     </MainStyled>
   );

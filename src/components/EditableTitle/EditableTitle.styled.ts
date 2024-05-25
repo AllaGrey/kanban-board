@@ -1,32 +1,17 @@
 import styled from "styled-components";
 
-export const CardContainer = styled.form`
+export const EditableTitleContainer = styled.form`
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: ${({ theme }) => theme.boxShadow.card};
-  border: 1px solid ${({ theme }) => theme.colors.secondaryColor};
-  width: 100%;
+  justify-content: center;
   align-items: center;
-  transition: ${({ theme }) => theme.transition};
+  gap: 10px;
 `;
 
 export const TitleInput = styled.input`
-  width: 100%;
+  width: 300px;
   border-radius: 5px;
   border: none;
   height: 30px;
-  background-color: ${({ theme }) => theme.colors.secondaryTextColor};
-`;
-
-export const DescriptionInput = styled.textarea`
-  width: 100%;
-  border-radius: 5px;
-  border: none;
-  resize: none;
-  min-height: 100px;
   background-color: ${({ theme }) => theme.colors.secondaryTextColor};
 `;
 

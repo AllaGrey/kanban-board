@@ -1,58 +1,102 @@
-import React, { useState } from "react";
-import { CardsContainer, ColumnStyled, Title } from "./Column.styled";
+import React from "react";
+import { useSelector } from "react-redux";
+import { getCardInEditingId, getStatusEditing } from "../../redux/selectors";
+import { ICard, STATUS } from "../../constants/types";
+import { getStatusValue } from "../../utils/getStatusValue";
 import { Card } from "../Card/Card";
 import { AddCardButton } from "../AddCardButton/AddCardButton";
-import { ICard } from "../../constants/types";
 import { EditableCard } from "../EditableCard/EditableCard";
+import { DroppingArea } from "../DroppingArea/DroppingArea";
+import { CardsContainer, ColumnStyled, Title } from "./Column.styled";
 
 type Props = {
-  status: string;
+  status: string | keyof typeof STATUS;
   data: ICard[];
+  isCardAdding: boolean;
+  draggingCard: string;
+  setDraggingCard: React.Dispatch<React.SetStateAction<string>>;
+  onDrop: (
+    status: keyof typeof STATUS,
+    index: number,
+    draggingCard: string
+  ) => void;
+  toggleStatusAdding: () => void;
+  openAdding: () => void;
 };
 
-export const Column: React.FC<Props> = ({ status, data }) => {
-  const [isCardAdding, setIsCardAdding] = useState<boolean>(false);
-  const [cardInEditing, setCardInEditing] = useState<string | null>(null);
+export const Column: React.FC<Props> = ({
+  status,
+  data,
+  isCardAdding,
+  draggingCard,
+  setDraggingCard,
+  onDrop,
+  toggleStatusAdding,
+  openAdding,
+}) => {
+  const editingCardId = useSelector(getCardInEditingId);
+  const statusEditing = useSelector(getStatusEditing);
 
-  const toggleStatusAdding = () => setIsCardAdding(!isCardAdding);
+  const statusValue = getStatusValue(status);
 
-  const cardEditing = (id: string) => {
-    setCardInEditing(id);
-    console.log(id);
-    return id;
-
-    // setCardInEditing((prev) => {
-    //   if (prev === null) return id;
-
-    //   if (prev && id === prev) return null;
-
-    //   if (prev && id !== prev) return id;
-    // });
-  };
   return (
-    <ColumnStyled>
-      <Title>{status}</Title>
-      <div>{data.length}</div>
-      <CardsContainer>
-        {data.map((item) => (
-          <>
-            {!cardInEditing || cardInEditing !== item.id ? (
-              <Card key={item.id} cardData={item} cardEditing={cardEditing} />
-            ) : (
-              <EditableCard
-                key={item.id}
-                cardData={item}
-                cardEditing={cardEditing}
+    <>
+      {data && (
+        <ColumnStyled>
+          <Title>{status}</Title>
+          <div>{data.length}</div>
+          <CardsContainer>
+            <DroppingArea
+              key={`${status}-start`}
+              onDrop={() => onDrop(statusValue, 1, draggingCard)}
+            />
+            {data.map((item) => (
+              <React.Fragment key={item.id}>
+                {!editingCardId || editingCardId !== item.id ? (
+                  <React.Fragment key={`${item.id}-card-wrapper`}>
+                    <Card
+                      key={`${item.id}-card`}
+                      cardData={item}
+                      toggleStatusAdding={toggleStatusAdding}
+                      draggingCard={draggingCard}
+                      setDraggingCard={setDraggingCard}
+                    />
+                    <DroppingArea
+                      key={`${item.id}-dropping`}
+                      onDrop={() =>
+                        onDrop(statusValue, item.order + 1, draggingCard)
+                      }
+                    />
+                  </React.Fragment>
+                ) : (
+                  <EditableCard
+                    key={`${item.id}-editable`}
+                    status={status}
+                    order={item.order}
+                  />
+                )}
+              </React.Fragment>
+            ))}
+            {statusEditing !== statusValue && (
+              <AddCardButton
+                key="add-card-button"
+                status={status as STATUS}
+                openAdding={openAdding}
               />
             )}
-          </>
-        ))}
-        {!isCardAdding ? (
-          <AddCardButton addCard={toggleStatusAdding} />
-        ) : (
-          <EditableCard toggleStatusAdding={toggleStatusAdding} />
-        )}
-      </CardsContainer>
-    </ColumnStyled>
+            {isCardAdding &&
+              !editingCardId &&
+              statusEditing === statusValue && (
+                <EditableCard
+                  key="new-editable-card"
+                  toggleStatusAdding={toggleStatusAdding}
+                  status={status}
+                  order={data.length + 1}
+                />
+              )}
+          </CardsContainer>
+        </ColumnStyled>
+      )}
+    </>
   );
 };

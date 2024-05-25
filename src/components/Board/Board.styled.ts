@@ -11,3 +11,25 @@ export const BoardStyled = styled.div`
   gap: 15px;
   justify-content: space-between;
 `;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 10px;
+`;
+
+export const BoardTitle = styled.h2`
+  display: flex;
+  justify-content: center;
+`;
+
+export const Button = styled.button`
+  stroke: ${({ theme }) => theme.colors.textColor};
+  transition: ${({ theme }) => theme.transition};
+
+  &:hover,
+  &:focus > svg {
+    stroke: ${({ theme }) => theme.colors.secondaryTextColor};
+  }
+`;

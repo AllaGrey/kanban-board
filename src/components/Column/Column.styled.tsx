@@ -21,6 +21,6 @@ export const Title = styled.h3`
 export const CardsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   width: 100%;
 `;

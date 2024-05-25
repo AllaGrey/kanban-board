@@ -14,5 +14,6 @@ export const MainStyled = styled.main`
 
 export const MainContentContainer = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 10px;
 `;

@@ -1,86 +1,95 @@
-import React from "react";
-import { BoardStyled } from "./Board.styled";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentBoard } from "../../redux/selectors";
+import { AppDispatch } from "../../redux/store";
+import { updateCardOrder } from "../../redux/operations";
+import { getCardsToUpdate } from "../../utils/getCardsToUpdate";
+import { ICard, STATUS } from "../../constants/types";
+import { EditableTitle } from "../EditableTitle/EditableTitle";
+import { Icon } from "../../shared/Icon/Icon";
 import { Column } from "../Column/Column";
-import { IBoard, STATUS } from "../../constants/types";
-
-const MockBoardData: IBoard = {
-  id: "33",
-  title: "Board 33",
-  columns: {
-    todo: [
-      {
-        id: "1",
-        title: "Task 1",
-        description:
-          "lorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlflorem ipsum dolorlf",
-        status: "todo",
-        order: 1,
-      },
-      {
-        id: "2",
-        title: "Task 2",
-        description: "lorem ipsum dolorlf",
-        status: "todo",
-        order: 2,
-      },
-      {
-        id: "7",
-        title: "Task 7",
-        description: "lorem ipsum dolorlf",
-        status: "todo",
-        order: 3,
-      },
-    ],
-    inProgress: [
-      {
-        id: "3",
-        title: "Task 3",
-        description: "lorem ipsum dolorlf",
-        status: "inProgress",
-        order: 1,
-      },
-      {
-        id: "4",
-        title: "Task 4",
-        description: "lorem ipsum dolorlf",
-        status: "inProgress",
-        order: 2,
-      },
-    ],
-    done: [
-      {
-        id: "111",
-        title: "Task 5",
-        description: "lorem ipsum dolorlf",
-        status: "done",
-        order: 2,
-      },
-      {
-        id: "6",
-        title: "Task 6",
-        description: "lorem ipsum dolorlf",
-        status: "done",
-        order: 1,
-      },
-    ],
-  },
-  createAT: "10.05.2024 10:00:00",
-  updateAT: "10.05.2024 12:59:00",
-};
+import { BoardStyled, Button, TitleContainer } from "./Board.styled";
 
 export const Board: React.FC = () => {
+  const [isCardAdding, setIsCardAdding] = useState<boolean>(false);
+  const [draggingCard, setDraggingCard] = useState<string>("");
+  const [isEditingTitle, setEditingTitle] = useState<boolean>(false);
+
+  const board = useSelector(getCurrentBoard);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const toggleStatusAdding = () => setIsCardAdding(!isCardAdding);
+  const openAdding = () => setIsCardAdding(true);
+  const toggleEditingTitle = () => setEditingTitle(!isEditingTitle);
+
+  const onDrop = (
+    status: keyof typeof STATUS,
+    position: number,
+    draggingCard: string
+  ) => {
+    console.log(
+      `Card ${draggingCard} moves to position ${position} with status ${status}`
+    );
+
+    const columns = { ...board.cards };
+    const cardsToUpdate = getCardsToUpdate(
+      status,
+      position,
+      draggingCard,
+      columns
+    ) as ICard[];
+    console.log(cardsToUpdate);
+    dispatch(updateCardOrder(cardsToUpdate));
+  };
+
+  console.log(draggingCard);
+
   return (
-    <BoardStyled>
-      {Object.entries(MockBoardData.columns).map(([status, tasks]) => {
-        const sortedTasks = tasks.sort((a, b) => a.order - b.order);
-        return (
-          <Column
-            key={status}
-            status={STATUS[status as keyof typeof STATUS]}
-            data={sortedTasks}
-          />
-        );
-      })}
-    </BoardStyled>
+    <>
+      {board?.id ? (
+        <>
+          {isEditingTitle ? (
+            <EditableTitle
+              boardTitle={board.title}
+              boardId={board.id}
+              toggleEditingTitle={toggleEditingTitle}
+            />
+          ) : (
+            <TitleContainer>
+              <h2>{board.title}</h2>
+              <Button onClick={toggleEditingTitle}>
+                <Icon
+                  iconName="update"
+                  width={20}
+                  height={20}
+                  stroke="inherit"
+                  fill="inherit"
+                />
+              </Button>
+            </TitleContainer>
+          )}
+          <BoardStyled>
+            {Object.entries(board.cards).map(([status, tasks], index) => {
+              return (
+                <Column
+                  key={status + index}
+                  status={STATUS[status as keyof typeof STATUS]}
+                  data={tasks}
+                  isCardAdding={isCardAdding}
+                  toggleStatusAdding={toggleStatusAdding}
+                  openAdding={openAdding}
+                  draggingCard={draggingCard}
+                  setDraggingCard={setDraggingCard}
+                  onDrop={onDrop}
+                />
+              );
+            })}
+          </BoardStyled>
+        </>
+      ) : (
+        <p>Select a board or create new</p>
+      )}
+    </>
   );
 };
