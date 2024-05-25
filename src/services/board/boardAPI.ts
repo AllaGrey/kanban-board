@@ -8,7 +8,6 @@ axios.defaults.baseURL = BASE_URL;
 export const getBoardById = async (boardId: string) => {
   try {
     const { data } = await axios.get(`/${ENDPOINTS.BOARDS}/${boardId}`);
-    console.log(data, "getBoardById");
     return data;
   } catch (error) {
     console.log(error);
@@ -18,7 +17,6 @@ export const getBoardById = async (boardId: string) => {
 export const addBoard = async (title: string): Promise<IBoard | void> => {
   try {
     const { data } = await axios.post(`/${ENDPOINTS.BOARDS}`, { title });
-    console.log(data, "addBoard");
     return data;
   } catch (error) {
     console.log(error);
@@ -42,7 +40,6 @@ export const updateBoard = async (
     const { data } = await axios.patch(`/${ENDPOINTS.BOARDS}/${boardId}`, {
       title,
     });
-    console.log(data, "updateBoard");
     return data;
   } catch (error) {
     console.log(error);

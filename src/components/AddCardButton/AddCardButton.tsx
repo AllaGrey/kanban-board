@@ -1,9 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { addingCard } from "../../redux/boardSlice";
 import { STATUS } from "../../constants/types";
-import { getStatusEditing } from "../../redux/selectors";
 import { getStatusValue } from "../../utils/getStatusValue";
 import { Icon } from "../../shared/Icon/Icon";
 import { AddCardBtn, ButtonText } from "./AddCardButton.styled";
@@ -16,11 +15,9 @@ type Props = {
 
 export const AddCardButton: React.FC<Props> = ({ openAdding, status }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const statusEditing = useSelector(getStatusEditing);
 
   const handleAddingCard = () => {
     const statusValue = getStatusValue(status);
-    console.log(statusEditing, statusValue, "statusEditing statusValue");
     statusValue && dispatch(addingCard(statusValue));
     openAdding();
   };

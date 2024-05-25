@@ -130,7 +130,6 @@ const boardSlice = createSlice({
           action: PayloadAction<Pick<ICard, "id" | "status">>
         ) => {
           const { id, status } = action.payload;
-          console.log(id, status, "from reducer");
           if (status && state.board.cards[status]) {
             state.board.cards[status] = state.board.cards[status].filter(
               (card) => card.id !== id

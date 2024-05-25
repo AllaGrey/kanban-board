@@ -20,7 +20,6 @@ export const addCard = async ({
       order,
       boardId,
     });
-    console.log(result);
 
     return result.data as ICard;
   } catch (error) {
@@ -31,7 +30,6 @@ export const addCard = async ({
 export const deleteCard = async (cardId: string) => {
   try {
     const result = await axios.delete(`/${ENDPOINTS.CARDS}/${cardId}`);
-    console.log(result, "deleteCard");
     return result;
   } catch (error) {
     console.log(error);
@@ -48,7 +46,6 @@ export const updateCard = async (card: ICard) => {
       order,
       boardId,
     });
-    console.log(data, "updateCard");
     return data;
   } catch (error) {
     console.log(error);
@@ -58,7 +55,6 @@ export const updateCard = async (card: ICard) => {
 export const updateManyCards = async (cards: ICard[]) => {
   try {
     const { data } = await axios.put(`/${ENDPOINTS.CARDS}`, cards);
-    console.log(data, "updateManyCards");
     return data;
   } catch (error) {
     console.log(error);

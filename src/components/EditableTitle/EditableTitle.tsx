@@ -34,13 +34,11 @@ export const EditableTitle: React.FC<Props> = ({
   const dispatch = useDispatch<AppDispatch>();
 
   const onChangeTitle = ({ title }: EditableTitleFormData) => {
-    console.log(title);
     dispatch(updateBoardTitle({ title, boardId }));
     toggleEditingTitle();
   };
 
   const onCancelChanges = () => {
-    console.log("Cancelling changes");
     toggleEditingTitle();
   };
 

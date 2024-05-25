@@ -10,12 +10,8 @@ export const ControlPanel: React.FC = () => {
   const boardId = useSelector(getCurrentBoardId);
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleAddBoard = async () => {
-    try {
-      await dispatch(addNewBoard("New board")).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
+  const handleAddBoard = () => {
+    dispatch(addNewBoard("New board"));
   };
 
   const handleDeleteBoard = () => {

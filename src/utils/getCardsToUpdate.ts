@@ -28,7 +28,7 @@ export const getCardsToUpdate = (
   }
 
   if (!draggingCard) {
-    console.error("Card not found");
+    console.log("Card not found");
     return;
   }
 
