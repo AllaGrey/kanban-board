@@ -20,3 +20,9 @@ Task Management Boards is a web application for managing tasks, allowing users t
 - Users can move cards between columns and change their order.
 - User authentication is not required. Board management is considered anonymous.
 
+- Frontend: 
+  - Live page: [Task Management Boards - Frontend](https://allagrey.github.io/kanban-board/)
+  - Repository: [GitHub - Frontend](https://github.com/AllaGrey/kanban-board)
+- Backend: 
+  - Live page: [Task Management Boards - Backend](https://kanban-board-back.vercel.app/)
+  - Repository: [GitHub - Backend](https://github.com/AllaGrey/kanban-board-backend)
