@@ -61,7 +61,11 @@ Task Management Boards is a web application for managing tasks, allowing users t
 2. Click on "Search" or similar UI element.
 3. If the ID is correct and the board exists, it will be loaded with its corresponding columns and cards.
 
-   ### Possible Improvements
+### Possible Improvements
+
+#### Write Tests:
+- Implement unit tests and integration tests to ensure code quality and reliability.
+- Use testing frameworks suitable for the tech stack, such as Jest for React and TypeScript.
 
 #### Add a Select Dropdown for Existing Boards:
 - Implement a dropdown menu to select from existing boards (displaying ID and name).
