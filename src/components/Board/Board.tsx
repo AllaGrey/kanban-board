@@ -28,10 +28,6 @@ export const Board: React.FC = () => {
     position: number,
     draggingCard: string
   ) => {
-    console.log(
-      `Card ${draggingCard} moves to position ${position} with status ${status}`
-    );
-
     const columns = { ...board.cards };
     const cardsToUpdate = getCardsToUpdate(
       status,
@@ -39,11 +35,9 @@ export const Board: React.FC = () => {
       draggingCard,
       columns
     ) as ICard[];
-    console.log(cardsToUpdate);
+
     dispatch(updateCardOrder(cardsToUpdate));
   };
-
-  console.log(draggingCard);
 
   return (
     <>
