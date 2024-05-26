@@ -26,3 +26,51 @@ Task Management Boards is a web application for managing tasks, allowing users t
 - Backend: 
   - Live page: [Task Management Boards - Backend](https://kanban-board-back.vercel.app/)
   - Repository: [GitHub - Backend](https://github.com/AllaGrey/kanban-board-backend)
+ 
+### Testing Steps
+
+#### Add Board:
+1. Click on "Create Board" or similar UI element.
+2. The board is created with a default name that can be changed later.
+
+#### Add Cards:
+1. After creating a board, click on "Add Card" or similar UI element.
+2. Fill in the card details, including title and description.
+3. The card will be added to the "ToDo" column or equivalent, depending on settings.
+
+#### Save Without Information:
+1. Attempt to save a card without filling in mandatory fields like title.
+2. If no information is entered, the application will automatically assign default values to the card's title and description.
+
+#### Edit Cards:
+1. Click on the card you want to edit.
+2. Modify the necessary data (title, description).
+3. Click on "Save" or similar UI element to save the changes.
+
+#### Move Cards:
+1. Click and hold the left mouse button on a card.
+2. Drag the card to the desired column or position within a column.
+3. Release the mouse button to drop the card.
+
+#### Delete Board:
+1. While managing a board, click on "Delete Board" or similar UI element.
+2. Confirm the deletion of the board in the confirmation window if prompted.
+
+#### Find Board by ID:
+1. Enter the board ID you want to find in the search field.
+2. Click on "Search" or similar UI element.
+3. If the ID is correct and the board exists, it will be loaded with its corresponding columns and cards.
+
+   ### Possible Improvements
+
+#### Add a Select Dropdown for Existing Boards:
+- Implement a dropdown menu to select from existing boards (displaying ID and name).
+- Limit the dropdown to show the 10 most recently modified boards.
+
+#### Enhanced Error Handling:
+- Implement more detailed error handling using notification systems (e.g., toasts).
+- Provide clear and user-friendly error messages for various error scenarios.
+
+#### Add Authentication and Board Deletion Restrictions:
+- Implement user authentication to secure the application.
+- Restrict board deletion to the author or authenticated users with appropriate permissions.
