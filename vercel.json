@@ -10,8 +10,8 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "src": "/kanban-board/(.*)",
+      "dest": "/kanban-board/index.html"
     }
   ]
 }
