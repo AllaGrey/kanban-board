@@ -7,7 +7,6 @@ export default defineConfig({
   base: "/kanban-board/",
   server: {
     open: "/kanban-board/",
-    port: 3000,
   },
   build: {
     outDir: "dist",
