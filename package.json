@@ -2,7 +2,7 @@
   "name": "kanban-board",
   "private": true,
   "version": "0.1.0",
-  "homepage": "https://allagrey.github.io/kanban-board/",
+  "homepage": "https://kanban-board-ag.vercel.app/",
   "type": "module",
   "scripts": {
     "dev": "vite",
